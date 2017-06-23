@@ -1,0 +1,141 @@
+﻿
+<div class="demo-section k-content" id="updateContent">
+    <form id="updateForm" data-role="validator" novalidate="novalidate">
+        <table class="table table-striped">
+            <tr>
+                <td>Company Name</td>
+                <td><input id="updateCompanyName" name="CompanyName" required value="@ViewBag.CompanyName" /></td>
+            </tr>
+            <tr>
+                <td>Contact Name</td>
+                <td><input id="updateContactName" name="ContactName" required value="@ViewBag.ContactName"  /></td>
+            </tr>
+            <tr>
+                <td>Contact Title</td>
+                <td><input id="updateContactTitle" name="ContactTitle" required value="@ViewBag.ContactTitle"  /></td>
+            </tr>
+            <tr>
+                <td>Creation Date</td>
+                <td><input id="updateCreationDate" name="CreationDate" required value="@ViewBag.CreationDate"  /></td>
+            </tr>
+            <tr>
+                <td>Country</td>
+                <td><input id="updateCountry" name="Country" required value="@ViewBag.Country"  /></td>
+            </tr>
+            <tr>
+                <td>City</td>
+                <td><input id="updateCity" name="City" required value="@ViewBag.City"  /></td>
+            </tr>
+            <tr>
+                <td>Region</td>
+                <td><input id="updateRegion" name="Region" required value="@ViewBag.Region"  /></td>
+            </tr>
+            <tr>
+                <td>Postal Code</td>
+                <td><input id="updatePostalCode" name="PostalCode" required value="@ViewBag.PostalCode"  /></td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td><input id="updateAddress" name="Address" required value="@ViewBag.Address"  /></td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td><input id="updatePhone" name="Phone" required value="@ViewBag.Phone"  /></td>
+            </tr>
+            <tr>
+                <td>Fax</td>
+                <td><input id="updateFax" name="Fax" required value="@ViewBag.Fax"  /></td>
+            </tr>
+        </table>
+    </form>
+    <button id="updateBtn" class="k-primary">更新</button>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        function Update() {
+            var update = this;
+
+
+            this.update = function (e) {
+                var validator = $("#updateForm").kendoValidator().data("kendoValidator");
+
+                var data = $('#updateForm').serializeObject();
+                if (validator.validate()) {
+                    console.log(validator);
+                    $.ajax({
+                        url: '/Cus/UpdateCus',
+                        type: 'POST',
+                        data: JSON.stringify(data),
+                        contentType: 'application/json',
+                        success: function (data) {
+                            console.log(data);
+                            if (data) {
+                                var window = $("#updateWindow").data("kendoWindow");
+                                window.close();
+                            } else {
+                                alert("資料輸入失敗");
+                            }
+                        }
+                    });
+                }
+            }
+
+
+
+            this.setDropDownList = function (action, columns) {
+                $("#" + action).kendoDropDownList({
+                    optionLabel: "-Select-",
+                    placeholder: "Select " + columns,
+                    dataTextField: "text",
+                    dataValueField: "value",
+                    validate: {
+                        required: true,
+                    },
+                    autoBind: true,
+                    editable: false,
+                    dataSource: {
+                        type: "json",
+                        transport: {
+                            read: {
+                                url: "/Cus/Read" + columns + "List",
+                            }
+                        }
+                    }
+                });
+            }
+            this.cleanSearch = function () {
+                $("#searchCus")[0].reset();
+            }
+
+        }
+
+        var update = new Update();
+
+
+
+        update.setDropDownList("updateContactTitle", "ContactTitle");
+        $("#updateCreationDate").kendoDatePicker({ dateInput: true, format: "yyyy-MM-dd", parseFormats: ["yyyy/MM/dd"] });
+        $("#updateBtn").kendoButton({ click: update.update });
+
+
+        $.fn.serializeObject = function () {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function () {
+                if (o[this.name]) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+
+    });
+
+</script>

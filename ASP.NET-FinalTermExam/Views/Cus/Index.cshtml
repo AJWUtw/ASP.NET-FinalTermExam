@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<div class="demo-section k-content">
+    <form id="searchCus" enctype="multipart/form-data">
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <td>客戶編號</td>
+                    <td><input id="searchCustomerID" name="CustomerID" /></td>
+                </tr>
+                <tr>
+                    <td>客戶名稱</td>
+                    <td><input id="searchCompanyName" name="CompanyName" /></td>
+                </tr>
+                <tr>
+                    <td>聯絡人姓名</td>
+                    <td><input id="searchContactName" name="ContactName" /></td>
+                </tr>
+                <tr>
+                    <td>聯絡人職稱</td>
+                    <td><input id="searchContactTitle" name="ContactTitle" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<p>
+    <button id="searchBtn" class="k-primary">查詢</button>
+    <button id="cleanSearchBtn" class="k-primary">清除</button>
+    <button id="getInsertWindow" class="k-primary">新增</button>
+</p>
+
+
+<div id="CusGrid"></div>
+    <div id="updateWindow"></div>
+    <div id="insertWindow">
+        <div class="demo-section k-content" id="insertContent">
+            <form id="insertForm" data-role="validator" novalidate="novalidate">
+                <table class="table table-striped">
+                    <tr>
+                        <td>Company Name</td>
+                        <td><input id="insertCompanyName" name="CompanyName" required /></td>
+                    </tr>
+                    <tr>
+                        <td>Contact Name</td>
+                        <td><input id="insertContactName" name="ContactName" required /></td>
+                    </tr>
+                    <tr>
+                        <td>Contact Title</td>
+                        <td><input id="insertContactTitle" name="ContactTitle" required /></td>
+                    </tr>
+                    <tr>
+                        <td>Creation Date</td>
+                        <td><input id="insertCreationDate" name="CreationDate" required /></td>
+                    </tr>
+                    <tr>
+                        <td>Country</td>
+                        <td><input id="insertCountry" name="Country" required /></td>
+                    </tr>
+                    <tr>
+                        <td>City</td>
+                        <td><input id="insertCity" name="City" required /></td>
+                    </tr>
+                    <tr>
+                        <td>Region</td>
+                        <td><input id="insertRegion" name="Region" required /></td>
+                    </tr>
+                    <tr>
+                        <td>Postal Code</td>
+                        <td><input id="insertPostalCode" name="PostalCode" required /></td>
+                    </tr>
+                    <tr>
+                        <td>Address</td>
+                        <td><input id="insertAddress" name="Address" required /></td>
+                    </tr>
+                    <tr>
+                        <td>Phone</td>
+                        <td><input id="insertPhone" name="Phone" required /></td>
+                    </tr>
+                    <tr>
+                        <td>Fax</td>
+                        <td><input id="insertFax" name="Fax" required /></td>
+                    </tr>
+                </table>
+            </form>
+            <button id="insertBtn" class="k-primary">新增</button>
+        </div>
+    </div>
+
+    <script src="~/Scripts/kendo.js"></script>
+
